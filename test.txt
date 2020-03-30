@@ -1,1 +1,8 @@
 about ubuntu
+
+QTdesigner
+$ProjectFileDir$
+
+PyUIC
+-m PyQt5.uic.pyuic $FileName$ -o $FileNameWithoutExtension$.py
+$FileDir$
