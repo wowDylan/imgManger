@@ -1,0 +1,6 @@
+test
+6.jpg
+E:/Codehub/imgManger/test/6.jpg
+361
+507
+3

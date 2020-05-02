@@ -11,7 +11,7 @@ from PyQt5.QtCore import Qt, QStringListModel
 from PyQt5.QtGui import QTransform, QIcon
 
 
-# 槽函数，以及槽的绑定，都在这里进行，需要自定义函数。过多的内容，则需要开一个libs，然后在此py文件中导入（参照labelimg）
+# 槽函数，以及槽的绑定，都在这里进行，需要自定义函数。过多的内容，则需要开一个libs，然后在此py文件中导入
 # 这是主窗口类
 class imgManger(QMainWindow, Ui_MainWindow):
     # 自定义信号书写处
@@ -27,7 +27,7 @@ class imgManger(QMainWindow, Ui_MainWindow):
         self.namelist_len = 0 # 初始化存储图片名称的列表的长度为0
         self.showimg.setFrameShape(QtWidgets.QFrame.Box)  # 显示Qlabel的边框
         self.showimg.setAlignment(Qt.AlignCenter)  # 图片居中显示,也即设置Qlabel中的内容居中显示
-        self.setWindowIcon(QIcon('./icons/app.png'))
+        self.setWindowIcon(QIcon('./icons/icon.png'))
         # 为控件设置相应的提示信息
         self.openfolder.setToolTip('打开Logo图像文件夹')
         self.openimg.setToolTip('打开单个Logo图像')
@@ -62,11 +62,22 @@ class imgManger(QMainWindow, Ui_MainWindow):
     #图片的加载显示事件，打开图片按钮
     def loadimg(self, picture):
         self.img = QtGui.QImage(picture)  # 读取图片
-        # 输出图片的大小，名称，所在位置。图片的深度如何获取？有待研究。
-        print(self.path.split('/')[-1])  # 输出工作目录
-        print(self.namelist[self.namelist_index])  # 输出Logo图像名称
-        print(self.path + '/' + self.namelist[self.namelist_index])  # Logo图像的完整路径
-        print(self.img.height(), self.img.width(), int(self.depth()/8))
+        # 输出图片的大小，名称，所在位置。图片的深度如何获取
+        txt = self.namelist[self.namelist_index].split('.')[0]
+        # print(self.path+'/'+txt+'.txt')
+        file = open(self.path+'/'+txt+'.txt', 'w')
+        file.write(self.path.split('/')[-1] + '\n')
+        file.write(self.namelist[self.namelist_index] + '\n')
+        file.write(self.path + '/' + self.namelist[self.namelist_index] + '\n')
+        file.write(str(self.img.height()) + '\n')
+        file.write(str(self.img.width()) + '\n')
+        file.write('3\n')
+        # file.write(str(int(self.depth())/8).split('.')[0] + '\n')
+        file.close()
+        # print(self.path.split('/')[-1])  # 输出工作目录
+        # print(self.namelist[self.namelist_index])  # 输出Logo图像名称
+        # print(self.path + '/' + self.namelist[self.namelist_index])  # Logo图像的完整路径
+        # print(self.img.height(), self.img.width(), int(self.depth()/8))
         # 对图片进行缩放
         self.width_prop = self.showimg.width() / self.img.width()  # 宽度的比例
         self.height_prop = self.showimg.height() / self.img.height()  # 高度的比例
@@ -92,17 +103,31 @@ class imgManger(QMainWindow, Ui_MainWindow):
         ymax = (y0 - self.up_margan) / self.prop
         ymin = (y1 - self.up_margan) / self.prop
         # 对标注框的坐标进行四舍五入
-        print(int(xmin+0.5))
-        print(int(xmax+0.5))
-        print(int(ymin+0.5))
-        print(int(ymax+0.5))
-        print('--------------------')
+        # print(int(xmin+0.5))
+        # print(int(xmax+0.5))
+        # print(int(ymin+0.5))
+        # print(int(ymax+0.5))
+        # print('--------------------')
         # self.showimg.release_signal.disconnect(self.print_axis)
+        txt = self.namelist[self.namelist_index].split('.')[0]
+        # print(self.path+'/'+txt+'.txt')
+        file = open(self.path+'/'+txt+'.txt', 'a')
+        file.write(str(int(xmin+0.5)) + '\n')
+        file.write(str(int(xmax+0.5)) + '\n')
+        file.write(str(int(ymin+0.5)) + '\n')
+        file.write(str(int(ymax+0.5)) + '\n')
+        file.write('-----------------\n')
+        file.close()
 
     # 对应鼠标的按下事件
     def print_YOLO_VOC(self):
         # 输出标注框对应的标签
-        print(self.selected_label)
+        # print(self.selected_label)
+        txt = self.namelist[self.namelist_index].split('.')[0]
+        # print(self.path+'/'+txt+'.txt')
+        file = open(self.path + '/' + txt + '.txt', 'a')
+        file.write(self.selected_label + '\n')
+        file.close()
 
     # openfolder按钮的单击事件
     def openfolder_click(self):
@@ -182,7 +207,7 @@ class imgManger(QMainWindow, Ui_MainWindow):
         targetname = self.path + '/' + 'good/'
         # 将图片路径写入工作工作目录下的good.txt
         filewrite = open(r''+self.path + '/good.txt', 'a')  # 加‘r’ 为了防止字符转义,python内部代码创建字符串才需要考虑转义问题，如果是从外部、客户端接收到的字符串是不需要再转义的。
-        filewrite.write(movename)
+        filewrite.write(movename + '\n')
         filewrite.close()
         # 将图片移动到工作目录下的good目录
         shutil.move(movename, targetname)
@@ -195,15 +220,17 @@ class imgManger(QMainWindow, Ui_MainWindow):
         print(targetname)
         # 将图片路径写入工作工作目录下的good.txt
         filewrite = open(r''+self.path + '/bad.txt', 'a')  # 加‘r’ 为了防止字符转义,python内部代码创建字符串才需要考虑转义问题，如果是从外部、客户端接收到的字符串是不需要再转义的。
-        filewrite.write(movename)
+        filewrite.write(movename + '\n')
         filewrite.close()
         # 将图片移动到工作目录下的good目录
         shutil.move(movename, targetname)
+
 
 class About(QDialog,Ui_Dialog):
     def __init__(self, parent=None):
         super(About, self).__init__(parent)
         self.setupUi(self)
+        self.setWindowIcon(QIcon('./icons/dialog.png'))
 
 
 # 用于窗口的启动，固定的写法

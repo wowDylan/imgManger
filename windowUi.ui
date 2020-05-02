@@ -80,7 +80,7 @@
       <x>290</x>
       <y>30</y>
       <width>471</width>
-      <height>481</height>
+      <height>501</height>
      </rect>
     </property>
     <property name="cursor">
@@ -136,7 +136,7 @@
      <rect>
       <x>160</x>
       <y>251</y>
-      <width>61</width>
+      <width>81</width>
       <height>18</height>
      </rect>
     </property>
@@ -159,6 +159,19 @@
      </rect>
     </property>
    </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>20</y>
+      <width>131</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Welcome to imgManger</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -166,7 +179,7 @@
      <x>0</x>
      <y>0</y>
      <width>798</width>
-     <height>23</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

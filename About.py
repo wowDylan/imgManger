@@ -42,7 +42,7 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Dialog", "About"))
         self.label_2.setText(_translate("Dialog", "imgManger"))
         self.label_3.setText(_translate("Dialog", "An application for logo management and annotation"))
         self.label_4.setText(_translate("Dialog", "Version: 1.0.0"))

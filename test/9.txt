@@ -1,0 +1,6 @@
+test
+9.jpg
+E:/Codehub/imgManger/test/9.jpg
+396
+522
+3
