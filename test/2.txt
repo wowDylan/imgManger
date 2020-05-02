@@ -1,6 +1,6 @@
 test
 2.jpg
-E:/Codehub/imgManger/test/2.jpg
+/home/dylan/Codehub/imgManger/test/2.jpg
 364
 516
 3

@@ -130,3 +130,5 @@ dmypy.json
 
 # pycharm 配置文件
 .idea/
+# 测试文件
+test/
