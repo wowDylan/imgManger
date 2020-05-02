@@ -1,6 +1,0 @@
-test
-8.jpg
-/home/dylan/Codehub/imgManger/test/8.jpg
-368
-509
-3
